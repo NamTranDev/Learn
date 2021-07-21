@@ -9,10 +9,7 @@ void main() {
       ),
       backgroundColor: Colors.blue,
       body: Center(
-        child: Image(
-          image: NetworkImage(
-              "https://upload.wikimedia.org/wikipedia/vi/thumb/5/5c/Chelsea_crest.svg/1200px-Chelsea_crest.svg.png"),
-        ),
+        child: Image(image: AssetImage("images/chelsea.png")),
       ),
     ),
   ));
