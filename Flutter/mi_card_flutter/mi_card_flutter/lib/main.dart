@@ -12,13 +12,31 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.black,
         body: SafeArea(
-          child: Container(
-            height: 100,
-            width: 100,
-            margin: EdgeInsets.symmetric(vertical: 50, horizontal: 10),
-            padding: EdgeInsets.all(10),
-            color: Colors.white,
-            child: Text("Hello World"),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            verticalDirection: VerticalDirection.up,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                height: 100,
+                width: double.infinity,
+                margin: EdgeInsets.symmetric(vertical: 50, horizontal: 10),
+                padding: EdgeInsets.all(10),
+                color: Colors.white,
+                child: Text("Container 1"),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: 100,
+                width: 100,
+                margin: EdgeInsets.symmetric(vertical: 50, horizontal: 10),
+                padding: EdgeInsets.all(10),
+                color: Colors.blue,
+                child: Text("Container 2"),
+              )
+            ],
           ),
         ),
         floatingActionButton: FloatingActionButton(
