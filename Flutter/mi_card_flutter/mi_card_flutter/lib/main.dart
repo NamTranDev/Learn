@@ -10,32 +10,28 @@ class MyApp extends StatelessWidget {
     // TODO: implement build
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.teal,
         body: SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            verticalDirection: VerticalDirection.up,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                height: 100,
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(vertical: 50, horizontal: 10),
-                padding: EdgeInsets.all(10),
-                color: Colors.white,
-                child: Text("Container 1"),
+              Container(height: double.infinity, width: 100, color: Colors.red),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 100,
+                    width: 100,
+                    color: Colors.yellow,
+                  ),
+                  Container(
+                    height: 100,
+                    width: 100,
+                    color: Colors.yellow.withOpacity(0.5),
+                  )
+                ],
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                height: 100,
-                width: 100,
-                margin: EdgeInsets.symmetric(vertical: 50, horizontal: 10),
-                padding: EdgeInsets.all(10),
-                color: Colors.blue,
-                child: Text("Container 2"),
-              )
+              Container(height: double.infinity, width: 100, color: Colors.blue)
             ],
           ),
         ),
