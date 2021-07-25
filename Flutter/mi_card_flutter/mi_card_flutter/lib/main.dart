@@ -7,7 +7,6 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.teal,
@@ -22,9 +21,19 @@ class MyApp extends StatelessWidget {
             Text(
               "Cloud",
               style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 15,
                   color: Colors.white,
-                  fontWeight: FontWeight.bold),
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Pacifico"),
+            ),
+            Text(
+              "Final Fantasy".toUpperCase(),
+              style: TextStyle(
+                  fontSize: 10,
+                  color: Colors.teal.shade100,
+                  fontFamily: "SourceSansPro",
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2),
             ),
           ],
         )),
