@@ -35,6 +35,47 @@ class MyApp extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   letterSpacing: 2),
             ),
+            Container(
+              padding: EdgeInsets.all(10),
+              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              color: Colors.white,
+              child: Row(
+                children: [
+                  Icon(Icons.phone, color: Colors.teal),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "+84 96 316 0906",
+                    style: TextStyle(
+                        color: Colors.teal.shade900,
+                        fontFamily: "SourceSansPro",
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.all(10),
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              color: Colors.white,
+              child: Row(
+                children: [
+                  Icon(Icons.email, color: Colors.teal),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    "namtran09061992@gmail.com",
+                    style: TextStyle(
+                        color: Colors.teal.shade900,
+                        fontFamily: "SourceSansPro",
+                        fontSize: 15),
+                  )
+                ],
+              ),
+            )
           ],
         )),
         floatingActionButton: FloatingActionButton(
