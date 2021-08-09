@@ -1,9 +1,10 @@
-import 'package:bmi_calculator/constants.dart';
+import 'package:bmi_calculator/data/constants.dart';
 import 'package:flutter/material.dart';
 
-import 'container_card.dart';
-import 'gender.dart';
-import 'icon_content.dart';
+import '../widget/container_content.dart';
+import '../data/gender.dart';
+import '../widget/icon_content.dart';
+import '../widget/increase_decrease_content.dart';
 
 class InputPage extends StatefulWidget {
   @override
@@ -13,6 +14,8 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   GenderType gender = GenderType.MALE;
   int height = 180;
+  int weight = 50;
+  int age = 20;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,81 +110,42 @@ class _InputPageState extends State<InputPage> {
                   Expanded(
                     child: ContainerCard(
                       colour: unactiveColor,
-                      cardChild: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Weight".toUpperCase(),
-                            style: lableTextStyle,
-                          ),
-                          Text(
-                            "80",
-                            style: lableNumberStyle,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {},
-                                child: Icon(Icons.remove, color: Colors.white),
-                                style: ElevatedButton.styleFrom(
-                                    shape: CircleBorder(),
-                                    primary: Colors.blue,
-                                    onPrimary: Colors.red),
-                              ),
-                              ElevatedButton(
-                                onPressed: () {},
-                                child: Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                    shape: CircleBorder(),
-                                    primary: Colors.blue,
-                                    onPrimary: Colors.red),
-                              )
-                            ],
-                          )
-                        ],
+                      cardChild: InCreaseDecreaseContent(
+                        lable: "Weight".toUpperCase(),
+                        value: weight.toString(),
+                        onDecrease: () {
+                          setState(() {
+                            if (weight == 20) return;
+                            weight = weight - 1;
+                          });
+                        },
+                        onIncrease: () {
+                          setState(() {
+                            if (weight == 100) return;
+                            weight = weight + 1;
+                          });
+                        },
                       ),
                     ),
                   ),
                   Expanded(
                     child: ContainerCard(
                       colour: unactiveColor,
-                      cardChild: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Age".toUpperCase(),
-                            style: lableTextStyle,
-                          ),
-                          Text(
-                            "20",
-                            style: lableNumberStyle,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {},
-                                child: Icon(Icons.remove, color: Colors.white),
-                                style: ElevatedButton.styleFrom(
-                                    shape: CircleBorder(),
-                                    primary: Colors.blue,
-                                    onPrimary: Colors.red),
-                              ),
-                              ElevatedButton(
-                                onPressed: () {},
-                                child: Icon(Icons.add, color: Colors.white),
-                                style: ElevatedButton.styleFrom(
-                                    shape: CircleBorder(),
-                                    primary: Colors.blue,
-                                    onPrimary: Colors.red),
-                              )
-                            ],
-                          )
-                        ],
+                      cardChild: InCreaseDecreaseContent(
+                        lable: "Age".toUpperCase(),
+                        value: age.toString(),
+                        onDecrease: () {
+                          setState(() {
+                            if (age == 10) return;
+                            age = age - 1;
+                          });
+                        },
+                        onIncrease: () {
+                          setState(() {
+                            if (age == 100) return;
+                            age = age + 1;
+                          });
+                        },
                       ),
                     ),
                   )
