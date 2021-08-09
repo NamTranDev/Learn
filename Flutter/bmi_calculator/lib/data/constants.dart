@@ -7,3 +7,5 @@ const unactiveColor = Color(0xFF111328);
 const lableTextStyle = TextStyle(fontSize: 15, color: Color(0xFF8D8E98));
 const lableNumberStyle =
     TextStyle(fontSize: 45, color: Colors.white, fontWeight: FontWeight.w900);
+const lableButtonStyle =
+    TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold);

@@ -1,6 +1,8 @@
 import 'package:bmi_calculator/data/constants.dart';
+import 'package:bmi_calculator/page/result_page.dart';
 import 'package:flutter/material.dart';
 
+import '../conculator_brain.dart';
 import '../widget/container_content.dart';
 import '../data/gender.dart';
 import '../widget/icon_content.dart';
@@ -152,15 +154,23 @@ class _InputPageState extends State<InputPage> {
                 ],
               ),
             ),
-            Container(
-              color: Color(0xFFEB1555),
-              margin: EdgeInsets.only(top: 10),
-              height: 50,
-              width: double.infinity,
-              child: Center(
-                child: Text(
-                  "Calculator BMI",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  CalculatorBrain calc = CalculatorBrain(weight, height);
+                  return ResultPage(calc);
+                }));
+              },
+              child: Container(
+                color: Color(0xFFEB1555),
+                margin: EdgeInsets.only(top: 10),
+                height: 50,
+                width: double.infinity,
+                child: Center(
+                  child: Text(
+                    "Calculator BMI",
+                    style: lableButtonStyle,
+                  ),
                 ),
               ),
             )
