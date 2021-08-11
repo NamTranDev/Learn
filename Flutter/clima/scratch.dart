@@ -6,8 +6,8 @@ void main() {
 
 void performTasks() async {
   task1();
-  print(task2());
-  // task3(await task2());
+  // print(task2());
+  task3(await task2());
 }
 
 void task1() {
@@ -26,6 +26,6 @@ Future<String?> task2() async {
 }
 
 void task3(String? data) {
-  String result = 'task 3 data';
+  String result = 'task 3 data';  
   print('Task 3 complete with $data');
 }
