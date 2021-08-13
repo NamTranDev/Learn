@@ -20,4 +20,11 @@ class WeatherController {
     WeatherModel? weather = await network.getData();
     return weather;
   }
+
+  Future<WeatherModel?> getCityWeather(String city) async {
+    NetworkHelper network =
+        NetworkHelper("${url}q=$city&units=metric&appid=$API_KEY");
+    WeatherModel? weather = await network.getData();
+    return weather;
+  }
 }

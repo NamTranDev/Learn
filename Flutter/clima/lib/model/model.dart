@@ -19,6 +19,8 @@ class WeatherModel {
   String getTempt() {
     if (main?.temp is double) {
       return (main!.temp as double).toStringAsFixed(0) + "°";
+    } else if (main?.temp is int) {
+      return (main?.temp).toString() + "°";
     } else {
       return "0°";
     }

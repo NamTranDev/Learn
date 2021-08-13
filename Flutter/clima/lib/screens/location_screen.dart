@@ -19,6 +19,8 @@ class _LocationScreenState extends State<LocationScreen> {
   var name;
   var message;
 
+  WeatherController weather = WeatherController();
+
   @override
   void initState() {
     super.initState();
@@ -48,7 +50,6 @@ class _LocationScreenState extends State<LocationScreen> {
                 children: <Widget>[
                   FlatButton(
                     onPressed: () async {
-                      WeatherController weather = WeatherController();
                       WeatherModel? weatherData =
                           await weather.getLocationWeather();
                       updateUI(weatherData);
@@ -59,11 +60,14 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   FlatButton(
-                    onPressed: () {
-                      Navigator.push(context,
+                    onPressed: () async {
+                      var cityName = await Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
                         return CityScreen();
                       }));
+                      if (cityName is String && cityName.isNotEmpty) {
+                        updateUI(await weather.getCityWeather(cityName));
+                      }
                     },
                     child: Icon(
                       Icons.location_city,
@@ -90,7 +94,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Padding(
                 padding: EdgeInsets.only(right: 15.0),
                 child: Text(
-                  "$message $name!",
+                  "$message $name",
                   textAlign: TextAlign.right,
                   style: kMessageTextStyle,
                 ),
