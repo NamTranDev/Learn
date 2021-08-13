@@ -1,7 +1,12 @@
 import 'dart:ffi';
 
+import 'package:clima/screens/location_screen.dart';
+import 'package:clima/services/location.dart';
+import 'package:clima/services/networking.dart';
+import 'package:clima/services/weather.dart';
+import 'package:clima/utilities/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -9,28 +14,11 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  var margin;
-
-  void getLocation() async {
-    try {
-      Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-      print(position);
-    } catch (e) {
-      print(e);
-    }
-  }
-
   @override
   void initState() {
     super.initState();
     print("initState()");
-    getLocation();
-    try {
-      margin = int.parse("abc");
-    } catch (e) {
-      print(e);
-    }
+    getLocationData();
   }
 
   @override
@@ -43,9 +31,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Widget build(BuildContext context) {
     print("build()");
     return Scaffold(
-      body: Container(
-        //Null aware operator
-        margin: EdgeInsets.all(margin ?? 30),
+      body: Center(
+        child: SpinKitDualRing(
+          color: Colors.white,
+          size: 50,
+        ),
       ),
     );
   }
@@ -66,5 +56,22 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void dispose() {
     print("dispose()");
     super.dispose();
+  }
+
+  Future<void> getLocationData() async {
+    Location location = Location();
+    await location.getLocation();
+
+    double lat = location.latitude;
+    double long = location.longitude;
+
+    NetworkHelper network = NetworkHelper(
+        "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$long&units=metric&appid=$API_KEY");
+    WeatherModel? weather = await network.getData();
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return LocationScreen(
+        locationWeather: weather,
+      );
+    }));
   }
 }
