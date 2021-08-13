@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:clima/model/model.dart';
 import 'package:clima/screens/location_screen.dart';
 import 'package:clima/services/location.dart';
 import 'package:clima/services/networking.dart';
@@ -59,18 +60,11 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   Future<void> getLocationData() async {
-    Location location = Location();
-    await location.getLocation();
-
-    double lat = location.latitude;
-    double long = location.longitude;
-
-    NetworkHelper network = NetworkHelper(
-        "https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$long&units=metric&appid=$API_KEY");
-    WeatherModel? weather = await network.getData();
+    WeatherController weather = WeatherController();
+    WeatherModel? weatherData = await weather.getLocationWeather();
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return LocationScreen(
-        locationWeather: weather,
+        locationWeather: weatherData,
       );
     }));
   }

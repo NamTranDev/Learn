@@ -1,3 +1,5 @@
+import 'package:clima/model/model.dart';
+import 'package:clima/screens/city_screen.dart';
 import 'package:clima/services/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:clima/utilities/constants.dart';
@@ -13,16 +15,14 @@ class LocationScreen extends StatefulWidget {
 
 class _LocationScreenState extends State<LocationScreen> {
   var temparature;
-  int condition = 0;
-  var name = "";
+  var iconWeather;
+  var name;
+  var message;
 
   @override
   void initState() {
     super.initState();
-    print(widget.locationWeather);
-    temparature = widget.locationWeather?.getTempt();
-    // condition = widget.locationWeather?.main
-    name = widget.locationWeather?.name;
+    updateUI(widget.locationWeather);
   }
 
   @override
@@ -47,14 +47,24 @@ class _LocationScreenState extends State<LocationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   FlatButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      WeatherController weather = WeatherController();
+                      WeatherModel? weatherData =
+                          await weather.getLocationWeather();
+                      updateUI(weatherData);
+                    },
                     child: Icon(
                       Icons.near_me,
                       size: 50.0,
                     ),
                   ),
                   FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return CityScreen();
+                      }));
+                    },
                     child: Icon(
                       Icons.location_city,
                       size: 50.0,
@@ -71,7 +81,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       style: kTempTextStyle,
                     ),
                     Text(
-                      '☀️',
+                      iconWeather,
                       style: kConditionTextStyle,
                     ),
                   ],
@@ -80,7 +90,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Padding(
                 padding: EdgeInsets.only(right: 15.0),
                 child: Text(
-                  "It's 🍦 time in $name!",
+                  "$message $name!",
                   textAlign: TextAlign.right,
                   style: kMessageTextStyle,
                 ),
@@ -90,5 +100,21 @@ class _LocationScreenState extends State<LocationScreen> {
         ),
       ),
     );
+  }
+
+  void updateUI(WeatherModel? locationWeather) {
+    setState(() {
+      if (locationWeather == null) {
+        temparature = "Not found data";
+        iconWeather = "";
+        name = "";
+        message = "";
+        return;
+      }
+      temparature = locationWeather.getTempt();
+      iconWeather = locationWeather.getWeatherIcon();
+      name = locationWeather.name;
+      message = locationWeather.getMessage();
+    });
   }
 }
