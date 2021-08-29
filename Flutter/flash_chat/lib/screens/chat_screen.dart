@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flash_chat/components/message_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat/constants.dart';
 
@@ -14,6 +15,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final _store = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
 
+  final textController = TextEditingController();
   String? message;
 
   @override
@@ -44,15 +46,6 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: null,
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.close),
-              onPressed: () async {
-                _auth.signOut();
-                Navigator.pop(context);
-              }),
-        ],
         title: Text('⚡️Chat'),
         backgroundColor: Colors.lightBlueAccent,
       ),
@@ -61,29 +54,32 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+            Expanded(
+                child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
-                  return Center(
-                    child: Text("Not found chat data"),
-                  );
+                  return Center();
                 }
                 if (snapshot.hasError) {
                   return Center(
                     child: Text("Error : ${snapshot.error}"),
                   );
                 }
-                List<Text> listMessages = [];
-                snapshot.data?.docs.forEach((element) {
-                  listMessages.add(Text(
-                      "${element.data()["sender"]}  send  ${element.data()["text"]}"));
+                List<Widget> listMessages = [];
+                snapshot.data?.docs.reversed.forEach((element) {
+                  String sender = element.data()["sender"];
+                  String message = element.data()["text"];
+
+                  listMessages.add(MessageBubble(
+                      sender, message, _auth.currentUser?.email == sender));
                 });
-                return Column(
+                return ListView(
+                  reverse: true,
                   children: listMessages,
                 );
               },
-              stream: _store.collection("messages").snapshots(),
-            ),
+              stream: _store.collection("messages").orderBy("time").snapshots(),
+            )),
             Container(
               decoration: kMessageContainerDecoration,
               child: Row(
@@ -91,6 +87,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      controller: textController,
                       onChanged: (value) {
                         message = value;
                       },
@@ -100,7 +97,9 @@ class _ChatScreenState extends State<ChatScreen> {
                   FlatButton(
                     onPressed: () {
                       // message + email
+                      textController.clear();
                       _store.collection("messages").add({
+                        "time": DateTime.now(),
                         "text": message,
                         "sender": _auth.currentUser?.email
                       });

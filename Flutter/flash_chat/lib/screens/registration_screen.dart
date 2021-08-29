@@ -32,12 +32,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Hero(
-                    tag: "logo",
-                    child: Container(
-                      height: 200.0,
-                      child: Image.asset('images/logo.png'),
-                    )),
+                Flexible(
+                  child: Hero(
+                      tag: "logo",
+                      child: Container(
+                        height: 200.0,
+                        child: Image.asset('images/logo.png'),
+                      )),
+                ),
                 SizedBox(
                   height: 48.0,
                 ),
@@ -75,7 +77,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           await _authen.createUserWithEmailAndPassword(
                               email: email ?? "", password: password ?? "");
                       print(user);
-                      Navigator.popAndPushNamed(context, ChatScreen.id);
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          ChatScreen.id, (Route<dynamic> route) => false);
                     } catch (e) {
                       print(e);
                     }

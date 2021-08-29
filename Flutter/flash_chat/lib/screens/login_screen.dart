@@ -6,6 +6,8 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import '../constants.dart';
 import 'chat_screen.dart';
 
+var _authen = FirebaseAuth.instance;
+
 class LoginScreen extends StatefulWidget {
   static const id = "Login Screen";
 
@@ -14,8 +16,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  var _authen = FirebaseAuth.instance;
-
   String? email;
   String? password;
   bool showLoading = false;
@@ -32,12 +32,14 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Hero(
-                    tag: "logo",
-                    child: Container(
-                      height: 200.0,
-                      child: Image.asset('images/logo.png'),
-                    )),
+                Flexible(
+                  child: Hero(
+                      tag: "logo",
+                      child: Container(
+                        height: 200.0,
+                        child: Image.asset('images/logo.png'),
+                      )),
+                ),
                 SizedBox(
                   height: 48.0,
                 ),
@@ -75,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           await _authen.signInWithEmailAndPassword(
                               email: email ?? "", password: password ?? "");
                       print(user);
-                      Navigator.popAndPushNamed(context, ChatScreen.id);
+                      Navigator.of(context).pushNamedAndRemoveUntil(ChatScreen.id, (Route<dynamic> route) => false);
                     } catch (e) {
                       print(e);
                     }
