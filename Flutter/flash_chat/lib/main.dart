@@ -5,7 +5,6 @@ import 'package:flash_chat/screens/welcome_screen.dart';
 import 'package:flash_chat/screens/login_screen.dart';
 import 'package:flash_chat/screens/registration_screen.dart';
 import 'package:flash_chat/screens/chat_screen.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 void main() => runApp(FlashChat());
 
@@ -23,7 +22,9 @@ class FlashChat extends StatelessWidget {
             );
           }
           if (snapshot.connectionState != ConnectionState.done) {
-            return Container();
+            return Container(
+              color: Colors.white,
+            );
           }
           return MaterialApp(
             initialRoute: isLogin() ? ChatScreen.id : WelcomeScreen.id,
