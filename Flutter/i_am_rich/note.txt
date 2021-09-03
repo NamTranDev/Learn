@@ -1,0 +1,2 @@
+Web for make app icon : https://appicon.co/
+Web for make app icon Android : http://romannurik.github.io/AndroidAssetStudio/index.html

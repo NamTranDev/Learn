@@ -1,0 +1,27 @@
+Error: Cannot run with sound null safety, because the following dependencies
+don't support null safety:
+
+- package:flutter_spinkit
+2
+
+For solutions, see https://dart.dev/go/unsound-null-safety
+2
+
+FAILURE: Build failed with an exception.
+
+Fix : 
+
+First, you should read through the guide to understand unsound null safety. (https://dart.dev/null-safety/unsound-null-safety)
+If you are sure that you want to run your app with unsound null safety, you can use the following command:
+
+flutter run --no-sound-null-safety
+The --no-sound-null-safety option is not documented in the article, however, I have not experienced any problems with it for the last few months (and especially not since the whole Flutter framework has been migrated to null safety).
+
+Edit: the documentation has now been updated to include this. See Testing or running mixed-version programs. (https://dart.dev/null-safety/unsound-null-safety#testing-or-running-mixed-version-programs)
+
+IDE run args/configuration
+To set this up in your IDE of choice, you can use:
+
+IntelliJ/Android Studio: "Edit Configurations" (in your run configurations) → "Additional run args".
+VS Code: search for "Flutter run additional args" in your user settings.
+In both cases, add --no-sound-null-safety.
