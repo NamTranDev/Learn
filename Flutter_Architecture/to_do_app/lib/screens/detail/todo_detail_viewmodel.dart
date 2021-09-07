@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:to_do_app/common/logger.dart';
 import 'package:to_do_app/data/interator/todo_use_case.dart';
 import 'package:to_do_app/data/models/todo.dart';
+import 'package:to_do_app/screens/base/model/loading_process.dart';
 import 'package:to_do_app/screens/base/viewmodel.dart';
 
 import '../../injection.dart';
@@ -18,10 +18,9 @@ class TodoDetailViewModel extends ViewModel {
 
   @override
   void loadData(id) {
-    logger(identityHashCode(_useCase));
     excute(_useCase.getTodo(id), (value) {
       _todo = value;
-    });
+    }, loading: LoadingProcess.LOADING_NORMAL);
   }
 
   void updateTodo(String text) {

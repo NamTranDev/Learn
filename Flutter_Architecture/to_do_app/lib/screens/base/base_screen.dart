@@ -14,17 +14,35 @@ abstract class BaseScreen<VM extends ViewModel> extends StatefulWidget {
 
   void listenerVM(BuildContext context, VM? viewModel);
 
-  void initState() {}
+  void initState() {
+    logger("Lifecycle - initState - ${this.runtimeType.toString()}",
+        tag: TAG_CORE);
+  }
 
-  void didChangeDependencies(VM? viewModel) {}
+  void didChangeDependencies(VM? viewModel) {
+    logger("Lifecycle - didChangeDependencies - ${this.runtimeType.toString()}",
+        tag: TAG_CORE);
+  }
 
-  void dispose() {}
+  void dispose() {
+    logger("Lifecycle - dispose - ${this.runtimeType.toString()}",
+        tag: TAG_CORE);
+  }
 
-  void didUpdateWidget(VM? viewModel) {}
+  void didUpdateWidget(VM? viewModel) {
+    logger("Lifecycle - didUpdateWidget - ${this.runtimeType.toString()}",
+        tag: TAG_CORE);
+  }
 
-  void deactivate(VM? viewModel) {}
+  void deactivate(VM? viewModel) {
+    logger("Lifecycle - deactivate - ${this.runtimeType.toString()}",
+        tag: TAG_CORE);
+  }
 
-  void reassemble(VM? viewModel) {}
+  void reassemble(VM? viewModel) {
+    logger("Lifecycle - reassemble - ${this.runtimeType.toString()}",
+        tag: TAG_CORE);
+  }
 
   Widget build(BuildContext context);
 
@@ -51,13 +69,6 @@ class _BaseScreenState<VM extends ViewModel> extends State<BaseScreen<VM>> {
   }
 
   @override
-  void dispose() {
-    viewModel?.dispose();
-    widget.dispose();
-    super.dispose();
-  }
-
-  @override
   void deactivate() {
     widget.deactivate(viewModel);
     super.deactivate();
@@ -70,12 +81,18 @@ class _BaseScreenState<VM extends ViewModel> extends State<BaseScreen<VM>> {
   }
 
   @override
+  void dispose() {
+    widget.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) {
         viewModel = widget.initVM();
         listenLoadingDialog(viewModel);
-        widget.listenerVM(context,viewModel);
+        widget.listenerVM(context, viewModel);
         return viewModel;
       },
       child: widget.build(context),

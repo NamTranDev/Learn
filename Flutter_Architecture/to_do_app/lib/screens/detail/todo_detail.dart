@@ -8,6 +8,8 @@ class TodoDetail extends WidgetLoadingStateless<TodoDetailViewModel> {
   Widget widget(TodoDetailViewModel viewModel) {
     TextEditingController controller =
         TextEditingController(text: viewModel.todo?.content);
+    controller.selection = TextSelection.fromPosition(
+        TextPosition(offset: controller.text.length));
     return Container(
       padding: EdgeInsets.all(10),
       child: Column(

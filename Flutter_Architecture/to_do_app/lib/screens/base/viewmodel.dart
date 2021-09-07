@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
@@ -11,6 +10,7 @@ import 'package:to_do_app/screens/base/model/state_process.dart';
 import 'package:to_do_app/screens/base/model/status_process.dart';
 
 abstract class ViewModel extends ChangeNotifier {
+
   StreamController<StateProcess> _stateLoading = StreamController();
   StreamController<StateProcess> get stateLoading => this._stateLoading;
 
@@ -110,12 +110,9 @@ abstract class ViewModel extends ChangeNotifier {
     }
   }
 
-  successState(){
-    
-  }
-
   @override
   void dispose() {
+    logger("dispose ${this.runtimeType.toString()}", tag: TAG_CORE);
     _stateLoading.close();
     if (!compositeSubscription.isDisposed) {
       compositeSubscription.dispose();

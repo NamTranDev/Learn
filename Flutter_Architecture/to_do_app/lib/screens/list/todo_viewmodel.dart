@@ -25,7 +25,7 @@ class TodoViewModel extends ViewModel {
 
     // stateLoading.sink
     //     .add(StateProcess.success(loading: LoadingProcess.LOADING_DIALOG));
-
+    if (text.isEmpty) return;
     excute(_useCase.insertTodo(Todo(text)), (value) {
       _todoList.add(value);
     });
@@ -42,8 +42,6 @@ class TodoViewModel extends ViewModel {
     // state = StateProcess.loading();
     // await Future.delayed(Duration(seconds: 1));
     // state = StateProcess.success();
-
-    logger(identityHashCode(_useCase));
 
     excute(_useCase.getListTodo(), (value) {
       _todoList = value;
