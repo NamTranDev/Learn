@@ -1,3 +1,4 @@
+import 'package:ecommerce/components/no_account_text.dart';
 import 'package:ecommerce/components/social_icon.dart';
 import 'package:ecommerce/constants.dart';
 import 'package:ecommerce/screens/sign_in/components/sign_in_form.dart';
@@ -53,24 +54,7 @@ class _BodyState extends State<Body> {
               SizedBox(
                 height: 10,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Don't have an account?",
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                  Text(
-                    'Sign Up',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: kPrimaryColor,
-                    ),
-                  )
-                ],
-              )
+              NoAccountText()
             ],
           ),
         ),
