@@ -1,6 +1,7 @@
 import 'package:ecommerce/components/default_button.dart';
 import 'package:ecommerce/components/form_error.dart';
 import 'package:ecommerce/screens/forgot_password/forgot_password_screen.dart';
+import 'package:ecommerce/screens/login_success/login_success_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -37,22 +38,24 @@ class _SignInFormState extends State<SignInForm> {
                     errors.remove(kInvalidEmailError);
                   });
                 }
-                return;
               },
               validator: (value) {
+                var isValid = null;
                 var input = value ?? '';
                 if (input.isEmpty && !errors.contains(kEmailEmptyError)) {
                   setState(() {
                     errors.add(kEmailEmptyError);
                   });
+                  isValid = '';
                 }
                 if (!emailValidatorRegExp.hasMatch(input) &&
                     !errors.contains(kInvalidEmailError)) {
                   setState(() {
                     errors.add(kInvalidEmailError);
                   });
+                  isValid = '';
                 }
-                return;
+                return isValid;
               },
               decoration: InputDecoration(
                   labelText: 'Email',
@@ -81,21 +84,23 @@ class _SignInFormState extends State<SignInForm> {
                     errors.remove(kPasswordShortError);
                   });
                 }
-                return;
               },
               validator: (value) {
+                var isValid = null;
                 var input = value ?? '';
                 if (input.isEmpty && !errors.contains(kPasswordEmptyError)) {
                   setState(() {
                     errors.add(kPasswordEmptyError);
                   });
+                  isValid = '';
                 }
                 if (input.length < 8 && !errors.contains(kPasswordShortError)) {
                   setState(() {
                     errors.add(kPasswordShortError);
                   });
+                  isValid = '';
                 }
-                return;
+                return isValid;
               },
               decoration: InputDecoration(
                   labelText: 'Password',
@@ -146,6 +151,7 @@ class _SignInFormState extends State<SignInForm> {
                 onClick: () {
                   if (_formKey.currentState?.validate() == true) {
                     _formKey.currentState?.save();
+                    Navigator.pushNamed(context, LoginSuccessScreen.routeName);
                   }
                 })
           ],
