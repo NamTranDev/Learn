@@ -1,19 +1,19 @@
 import 'package:ecommerce/components/default_button.dart';
-import 'package:ecommerce/screens/complete_profile/complete_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../constants.dart';
 
-class SignUpForm extends StatefulWidget {
+class CompleteProfileForm extends StatefulWidget {
   @override
-  _SignUpFormState createState() => _SignUpFormState();
+  _CompleteProfileFormState createState() => _CompleteProfileFormState();
 }
 
-class _SignUpFormState extends State<SignUpForm> {
-  String? email;
-  String? password;
-  String? confirm_password;
+class _CompleteProfileFormState extends State<CompleteProfileForm> {
+  String? first_name;
+  String? last_name;
+  String? phone;
+  String? address;
   final _formKey = GlobalKey<FormState>();
   var validateMode = AutovalidateMode.disabled;
   @override
@@ -23,15 +23,19 @@ class _SignUpFormState extends State<SignUpForm> {
         autovalidateMode: validateMode,
         child: Column(
           children: [
-            buildEmailForm(),
+            buildFirstNameForm(),
             SizedBox(
               height: 20,
             ),
-            buildPasswordForm(),
+            buildLastNameForm(),
             SizedBox(
               height: 20,
             ),
-            buildRePasswordForm(),
+            buildPhoneForm(),
+            SizedBox(
+              height: 20,
+            ),
+            buildAddressForm(),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.025,
             ),
@@ -39,8 +43,6 @@ class _SignUpFormState extends State<SignUpForm> {
                 text: 'Continue',
                 onClick: () {
                   if (_formKey.currentState?.validate() == true) {
-                    Navigator.pushNamed(
-                        context, CompleteProfileScreen.routeName);
                   } else {
                     setState(() {
                       validateMode = AutovalidateMode.onUserInteraction;
@@ -51,77 +53,87 @@ class _SignUpFormState extends State<SignUpForm> {
         ));
   }
 
-  TextFormField buildEmailForm() {
+  TextFormField buildFirstNameForm() {
     return TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
+      onSaved: (newValue) => first_name = newValue,
       validator: (value) {
         var input = value ?? '';
         if (input.isEmpty) {
-          return kEmailEmptyError;
-        }
-        if (!emailValidatorRegExp.hasMatch(input)) {
-          return kInvalidEmailError;
+          return kFirstNameEmptyError;
         }
         return null;
       },
       decoration: InputDecoration(
-          labelText: 'Email',
-          hintText: 'Enter your email',
+          labelText: 'First Name',
+          hintText: 'Enter your first name',
           floatingLabelBehavior: FloatingLabelBehavior.always,
           suffixIcon: Padding(
             padding: const EdgeInsets.only(top: 15, bottom: 15, right: 15),
-            child: SvgPicture.asset('assets/icons/Mail.svg'),
+            child: SvgPicture.asset('assets/icons/User Icon.svg'),
           )),
     );
   }
 
-  TextFormField buildPasswordForm() {
+  TextFormField buildLastNameForm() {
     return TextFormField(
-      obscureText: true,
-      onSaved: (newValue) => password = newValue,
-      onChanged: (value) {
-        password = value;
-      },
+      onSaved: (newValue) => last_name = newValue,
       validator: (value) {
         var input = value ?? '';
         if (input.isEmpty) {
-          return kPasswordEmptyError;
-        }
-        if (input.length < 8) {
-          return kPasswordShortError;
+          return kLastNameEmptyError;
         }
         return null;
       },
       decoration: InputDecoration(
-          labelText: 'Password',
-          hintText: 'Enter your password',
+          labelText: 'Last Name',
+          hintText: 'Enter your last name',
           floatingLabelBehavior: FloatingLabelBehavior.always,
           suffixIcon: Padding(
             padding: const EdgeInsets.only(top: 15, bottom: 15, right: 15),
-            child: SvgPicture.asset('assets/icons/Lock.svg'),
+            child: SvgPicture.asset('assets/icons/User Icon.svg'),
           )),
     );
   }
 
-  TextFormField buildRePasswordForm() {
+  TextFormField buildPhoneForm() {
     return TextFormField(
-      obscureText: true,
-      onSaved: (newValue) => confirm_password = newValue,
+      keyboardType: TextInputType.phone,
+      onSaved: (newValue) => phone = newValue,
       validator: (value) {
         var input = value ?? '';
-        if (input != password) {
-          return kPasswordMatchError;
+        if (input.isEmpty) {
+          return kPhoneNameEmptyError;
         }
         return null;
       },
       decoration: InputDecoration(
-          labelText: 'Confirm Password',
-          hintText: 'Re-enter your password',
+          labelText: 'Phone',
+          hintText: 'Enter your phone number',
           floatingLabelBehavior: FloatingLabelBehavior.always,
           suffixIcon: Padding(
             padding: const EdgeInsets.only(top: 15, bottom: 15, right: 15),
-            child: SvgPicture.asset('assets/icons/Lock.svg'),
+            child: SvgPicture.asset('assets/icons/Phone.svg'),
+          )),
+    );
+  }
+
+  TextFormField buildAddressForm() {
+    return TextFormField(
+      onSaved: (newValue) => address = newValue,
+      validator: (value) {
+        var input = value ?? '';
+        if (input.isEmpty) {
+          return kAddressEmptyError;
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+          labelText: 'Address',
+          hintText: 'Enter your address',
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          suffixIcon: Padding(
+            padding: const EdgeInsets.only(top: 15, bottom: 15, right: 15),
+            child: SvgPicture.asset('assets/icons/Location point.svg'),
           )),
     );
   }
