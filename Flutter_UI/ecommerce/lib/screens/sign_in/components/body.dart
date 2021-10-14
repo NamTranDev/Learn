@@ -1,7 +1,6 @@
 import 'package:ecommerce/components/no_account_text.dart';
 import 'package:ecommerce/components/social_icon.dart';
 import 'package:ecommerce/components/top_text_authen.dart';
-import 'package:ecommerce/constants.dart';
 import 'package:ecommerce/screens/sign_in/components/sign_in_form.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

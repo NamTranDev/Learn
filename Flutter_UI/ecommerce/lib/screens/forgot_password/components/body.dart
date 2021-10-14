@@ -1,5 +1,4 @@
 import 'package:ecommerce/components/default_button.dart';
-import 'package:ecommerce/components/form_error.dart';
 import 'package:ecommerce/components/no_account_text.dart';
 import 'package:ecommerce/components/top_text_authen.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,7 +15,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   String? email;
   final _formKey = GlobalKey<FormState>();
-  List<String> errors = [];
+  var validateMode = AutovalidateMode.disabled;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -26,7 +25,7 @@ class _BodyState extends State<Body> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              TopTextAuthen(
+              const TopTextAuthen(
                   titleHeader: 'Forgot Password',
                   title:
                       'Please enter your email and we will send you a link to return to your account'),
@@ -35,40 +34,20 @@ class _BodyState extends State<Body> {
               ),
               Form(
                   key: _formKey,
+                  autovalidateMode: validateMode,
                   child: Column(
                     children: [
                       TextFormField(
                         onSaved: (newValue) => email = newValue,
-                        onChanged: (value) {
-                          if (value.isNotEmpty &&
-                              errors.contains(kEmailEmptyError)) {
-                            setState(() {
-                              errors.remove(kEmailEmptyError);
-                            });
-                          }
-                          if (emailValidatorRegExp.hasMatch(value) &&
-                              errors.contains(kInvalidEmailError)) {
-                            setState(() {
-                              errors.remove(kInvalidEmailError);
-                            });
-                          }
-                          return;
-                        },
                         validator: (value) {
                           var input = value ?? '';
-                          if (input.isEmpty &&
-                              !errors.contains(kEmailEmptyError)) {
-                            setState(() {
-                              errors.add(kEmailEmptyError);
-                            });
+                          if (input.isEmpty) {
+                            return kEmailEmptyError;
                           }
-                          if (!emailValidatorRegExp.hasMatch(input) &&
-                              !errors.contains(kInvalidEmailError)) {
-                            setState(() {
-                              errors.add(kInvalidEmailError);
-                            });
+                          if (!emailValidatorRegExp.hasMatch(input)) {
+                            return kInvalidEmailError;
                           }
-                          return;
+                          return null;
                         },
                         decoration: InputDecoration(
                             labelText: 'Email',
@@ -83,9 +62,6 @@ class _BodyState extends State<Body> {
                       SizedBox(
                         height: 10,
                       ),
-                      FormError(
-                        errors: errors,
-                      ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.15,
                       ),
@@ -93,7 +69,11 @@ class _BodyState extends State<Body> {
                           text: 'Continue',
                           onClick: () {
                             if (_formKey.currentState?.validate() == true) {
-                              _formKey.currentState?.save();
+                            } else {
+                              setState(() {
+                                validateMode =
+                                    AutovalidateMode.onUserInteraction;
+                              });
                             }
                           }),
                     ],
@@ -101,7 +81,7 @@ class _BodyState extends State<Body> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.15,
               ),
-              NoAccountText()
+              const NoAccountText()
             ],
           ),
         ),

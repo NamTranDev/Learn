@@ -1,5 +1,4 @@
 import 'package:ecommerce/components/default_button.dart';
-import 'package:ecommerce/components/form_error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -15,11 +14,12 @@ class _SignUpFormState extends State<SignUpForm> {
   String? password;
   String? confirm_password;
   final _formKey = GlobalKey<FormState>();
-  List<String> errors = [];
+  var validateMode = AutovalidateMode.disabled;
   @override
   Widget build(BuildContext context) {
     return Form(
         key: _formKey,
+        autovalidateMode: validateMode,
         child: Column(
           children: [
             buildEmailForm(),
@@ -34,9 +34,6 @@ class _SignUpFormState extends State<SignUpForm> {
             SizedBox(
               height: 10,
             ),
-            FormError(
-              errors: errors,
-            ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.025,
             ),
@@ -44,51 +41,28 @@ class _SignUpFormState extends State<SignUpForm> {
                 text: 'Continue',
                 onClick: () {
                   if (_formKey.currentState?.validate() == true) {
-                    _formKey.currentState?.save();
+                  } else {
+                    setState(() {
+                      validateMode = AutovalidateMode.onUserInteraction;
+                    });
                   }
                 })
           ],
         ));
   }
 
-  String? addError(String error) {
-    if (!errors.contains(error)) {
-      setState(() {
-        errors.add(error);
-      });
-      return '';
-    }
-  }
-
-  void removeError(String error) {
-    if (errors.contains(error)) {
-      setState(() {
-        errors.remove(error);
-      });
-    }
-  }
-
   TextFormField buildEmailForm() {
     return TextFormField(
       onSaved: (newValue) => email = newValue,
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(kEmailEmptyError);
-        }
-        if (emailValidatorRegExp.hasMatch(value)) {
-          removeError(kInvalidEmailError);
-        }
-      },
       validator: (value) {
-        var isValid = null;
         var input = value ?? '';
         if (input.isEmpty) {
-          return addError(kEmailEmptyError);
+          return kEmailEmptyError;
         }
         if (!emailValidatorRegExp.hasMatch(input)) {
-          return addError(kInvalidEmailError);
+          return kInvalidEmailError;
         }
-        return isValid;
+        return null;
       },
       decoration: InputDecoration(
           labelText: 'Email',
@@ -104,25 +78,15 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildPasswordForm() {
     return TextFormField(
       onSaved: (newValue) => password = newValue,
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(kPasswordEmptyError);
-        }
-        if (value.length >= 8) {
-          removeError(kPasswordShortError);
-        }
-        password = value;
-      },
       validator: (value) {
-        var isValid = null;
         var input = value ?? '';
         if (input.isEmpty) {
-          return addError(kPasswordEmptyError);
+          return kPasswordEmptyError;
         }
         if (input.length < 8) {
-          return addError(kPasswordShortError);
+          return kPasswordShortError;
         }
-        return isValid;
+        return null;
       },
       decoration: InputDecoration(
           labelText: 'Password',
@@ -139,22 +103,13 @@ class _SignUpFormState extends State<SignUpForm> {
     return TextFormField(
       obscureText: true,
       onSaved: (newValue) => confirm_password = newValue,
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(kPasswordEmptyError);
-        }
-        if (value == password) {
-          removeError(kPasswordMatchError);
-        }
-      },
       validator: (value) {
-        var isValid = null;
         var input = value ?? '';
         if (input != password) {
-          return addError(kPasswordMatchError);
+          return kPasswordMatchError;
         }
 
-        return isValid;
+        return null;
       },
       decoration: InputDecoration(
           labelText: 'Confirm Password',

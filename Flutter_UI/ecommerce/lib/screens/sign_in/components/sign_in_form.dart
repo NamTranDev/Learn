@@ -1,5 +1,4 @@
 import 'package:ecommerce/components/default_button.dart';
-import 'package:ecommerce/components/form_error.dart';
 import 'package:ecommerce/screens/forgot_password/forgot_password_screen.dart';
 import 'package:ecommerce/screens/login_success/login_success_screen.dart';
 import 'package:flutter/material.dart';
@@ -17,11 +16,12 @@ class _SignInFormState extends State<SignInForm> {
   String? password;
   bool remember = false;
   final _formKey = GlobalKey<FormState>();
-  List<String> errors = [];
+  var validateMode = AutovalidateMode.disabled;
   @override
   Widget build(BuildContext context) {
     return Form(
         key: _formKey,
+        autovalidateMode: validateMode,
         child: Column(
           children: [
             buildEmailForm(),
@@ -57,9 +57,6 @@ class _SignInFormState extends State<SignInForm> {
                 )
               ],
             ),
-            FormError(
-              errors: errors,
-            ),
             SizedBox(
               height: 10,
             ),
@@ -67,52 +64,29 @@ class _SignInFormState extends State<SignInForm> {
                 text: 'Continue',
                 onClick: () {
                   if (_formKey.currentState?.validate() == true) {
-                    _formKey.currentState?.save();
                     Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                  } else {
+                    setState(() {
+                      validateMode = AutovalidateMode.onUserInteraction;
+                    });
                   }
                 })
           ],
         ));
   }
 
-  String? addError(String error) {
-    if (!errors.contains(error)) {
-      setState(() {
-        errors.add(error);
-      });
-      return '';
-    }
-  }
-
-  void removeError(String error) {
-    if (errors.contains(error)) {
-      setState(() {
-        errors.remove(error);
-      });
-    }
-  }
-
   TextFormField buildEmailForm() {
     return TextFormField(
       onSaved: (newValue) => email = newValue,
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(kEmailEmptyError);
-        }
-        if (emailValidatorRegExp.hasMatch(value)) {
-          removeError(kInvalidEmailError);
-        }
-      },
       validator: (value) {
-        var isValid = null;
         var input = value ?? '';
         if (input.isEmpty) {
-          return addError(kEmailEmptyError);
+          return kEmailEmptyError;
         }
         if (!emailValidatorRegExp.hasMatch(input)) {
-          return addError(kInvalidEmailError);
+          return kInvalidEmailError;
         }
-        return isValid;
+        return null;
       },
       decoration: InputDecoration(
           labelText: 'Email',
@@ -129,24 +103,15 @@ class _SignInFormState extends State<SignInForm> {
     return TextFormField(
       obscureText: true,
       onSaved: (newValue) => password = newValue,
-      onChanged: (value) {
-        if (value.isNotEmpty) {
-          removeError(kPasswordEmptyError);
-        }
-        if (value.length >= 8) {
-          removeError(kPasswordShortError);
-        }
-      },
       validator: (value) {
-        var isValid = null;
         var input = value ?? '';
         if (input.isEmpty) {
-          return addError(kPasswordEmptyError);
+          return kPasswordEmptyError;
         }
         if (input.length < 8) {
-          return addError(kPasswordShortError);
+          return kPasswordShortError;
         }
-        return isValid;
+        return null;
       },
       decoration: InputDecoration(
           labelText: 'Password',
