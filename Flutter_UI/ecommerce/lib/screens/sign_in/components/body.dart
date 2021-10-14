@@ -1,5 +1,6 @@
 import 'package:ecommerce/components/no_account_text.dart';
 import 'package:ecommerce/components/social_icon.dart';
+import 'package:ecommerce/components/top_text_authen.dart';
 import 'package:ecommerce/constants.dart';
 import 'package:ecommerce/screens/sign_in/components/sign_in_form.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,21 +21,10 @@ class _BodyState extends State<Body> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.04,
-              ),
-              Text(
-                "Welcome Back",
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                'Sign in with your email and password \nor continue with social media',
-                textAlign: TextAlign.center,
-              ),
+              TopTextAuthen(
+                  titleHeader: 'Welcome Back',
+                  title:
+                      'Sign in with your email and password or continue with social media'),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.1,
               ),

@@ -1,6 +1,7 @@
 import 'package:ecommerce/components/default_button.dart';
 import 'package:ecommerce/components/form_error.dart';
 import 'package:ecommerce/components/no_account_text.dart';
+import 'package:ecommerce/components/top_text_authen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -25,24 +26,10 @@ class _BodyState extends State<Body> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.04,
-              ),
-              Text(
-                "Forgot Password",
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Text(
-                  'Please enter your email and we will send you a link to return to your account',
-                  textAlign: TextAlign.center,
-                ),
-              ),
+              TopTextAuthen(
+                  titleHeader: 'Forgot Password',
+                  title:
+                      'Please enter your email and we will send you a link to return to your account'),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.15,
               ),
