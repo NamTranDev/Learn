@@ -5,7 +5,7 @@ import 'constants.dart';
 ThemeData theme() {
   var outlineInputBorder = OutlineInputBorder(
       borderRadius: BorderRadius.circular(25),
-      borderSide: BorderSide(color: kTextColor),
+      borderSide: const BorderSide(color: kTextColor),
       gapPadding: 10);
   return ThemeData(
       scaffoldBackgroundColor: Colors.white,
@@ -13,7 +13,7 @@ ThemeData theme() {
       appBarTheme: appBarTheme(),
       textTheme: textTheme(),
       inputDecorationTheme: InputDecorationTheme(
-        contentPadding: EdgeInsets.symmetric(
+        contentPadding: const EdgeInsets.symmetric(
           horizontal: 45,
           vertical: 20,
         ),
@@ -33,7 +33,7 @@ TextTheme textTheme() {
 AppBarTheme appBarTheme() {
   return const AppBarTheme(
     color: Colors.white,
-    titleTextStyle: TextStyle(color: Color(0xFF8B8B8B), fontSize: 18),
+    titleTextStyle: TextStyle(color: Color(0xFF8B8B8B), fontSize: 20),
     iconTheme: IconThemeData(color: Colors.black),
     elevation: 0,
   );

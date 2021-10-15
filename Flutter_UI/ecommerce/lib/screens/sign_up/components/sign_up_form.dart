@@ -53,6 +53,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildEmailForm() {
     return TextFormField(
+      textInputAction: TextInputAction.next,
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue,
       validator: (value) {
@@ -78,6 +79,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildPasswordForm() {
     return TextFormField(
+      textInputAction: TextInputAction.next,
       obscureText: true,
       onSaved: (newValue) => password = newValue,
       onChanged: (value) {
@@ -106,6 +108,7 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildRePasswordForm() {
     return TextFormField(
+      textInputAction: TextInputAction.done,
       obscureText: true,
       onSaved: (newValue) => confirm_password = newValue,
       validator: (value) {

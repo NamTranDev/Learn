@@ -1,4 +1,5 @@
 import 'package:ecommerce/components/default_button.dart';
+import 'package:ecommerce/screens/otp/otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -43,6 +44,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
                 text: 'Continue',
                 onClick: () {
                   if (_formKey.currentState?.validate() == true) {
+                    Navigator.pushNamed(context, OtpScreen.routeName);
                   } else {
                     setState(() {
                       validateMode = AutovalidateMode.onUserInteraction;
@@ -55,6 +57,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   TextFormField buildFirstNameForm() {
     return TextFormField(
+      textInputAction: TextInputAction.next,
       onSaved: (newValue) => first_name = newValue,
       validator: (value) {
         var input = value ?? '';
@@ -76,6 +79,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   TextFormField buildLastNameForm() {
     return TextFormField(
+      textInputAction: TextInputAction.next,
       onSaved: (newValue) => last_name = newValue,
       validator: (value) {
         var input = value ?? '';
@@ -97,6 +101,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   TextFormField buildPhoneForm() {
     return TextFormField(
+      textInputAction: TextInputAction.next,
       keyboardType: TextInputType.phone,
       onSaved: (newValue) => phone = newValue,
       validator: (value) {

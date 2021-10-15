@@ -77,6 +77,7 @@ class _SignInFormState extends State<SignInForm> {
 
   TextFormField buildEmailForm() {
     return TextFormField(
+      textInputAction: TextInputAction.next,
       onSaved: (newValue) => email = newValue,
       validator: (value) {
         var input = value ?? '';
@@ -101,6 +102,7 @@ class _SignInFormState extends State<SignInForm> {
 
   TextFormField buildPasswordForm() {
     return TextFormField(
+      textInputAction: TextInputAction.done,
       obscureText: true,
       onSaved: (newValue) => password = newValue,
       validator: (value) {

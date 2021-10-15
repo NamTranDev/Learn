@@ -11,6 +11,18 @@ const kTextColor = Color(0xFF757575);
 
 const kAnimationDuration = Duration(milliseconds: 200);
 
+final otpDecoration = InputDecoration(
+    contentPadding: EdgeInsets.symmetric(vertical: 15),
+    enabledBorder: outlineInputBorder(),
+    focusedBorder: outlineInputBorder(),
+    border: outlineInputBorder());
+
+OutlineInputBorder outlineInputBorder() {
+  return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: BorderSide(color: kTextColor));
+}
+
 //Form Error
 final RegExp emailValidatorRegExp =
     RegExp(r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+');
