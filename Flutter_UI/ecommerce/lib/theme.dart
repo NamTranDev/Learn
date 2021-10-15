@@ -31,13 +31,10 @@ TextTheme textTheme() {
 }
 
 AppBarTheme appBarTheme() {
-  return AppBarTheme(
+  return const AppBarTheme(
     color: Colors.white,
-    textTheme: TextTheme(
-      headline6: TextStyle(color: Color(0xFF8B8B8B), fontSize: 18),
-    ),
+    titleTextStyle: TextStyle(color: Color(0xFF8B8B8B), fontSize: 18),
     iconTheme: IconThemeData(color: Colors.black),
     elevation: 0,
-    brightness: Brightness.light,
   );
 }

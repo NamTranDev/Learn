@@ -10,7 +10,6 @@ class SignInScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Sign In",
-          style: TextStyle(color: Colors.black),
         ),
       ),
       body: Body(),

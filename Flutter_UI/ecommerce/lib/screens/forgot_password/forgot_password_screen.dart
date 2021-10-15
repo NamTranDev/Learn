@@ -11,7 +11,6 @@ class ForgotPasswordScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Forgot Password',
-          style: const TextStyle(color: Colors.black),
         ),
       ),
       body: Body(),

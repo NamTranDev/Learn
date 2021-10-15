@@ -10,7 +10,6 @@ class CompleteProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Sign Up',
-          style: const TextStyle(color: Colors.black),
         ),
       ),
       body: Body(),
