@@ -1,4 +1,5 @@
 import 'package:ecommerce/routes.dart';
+import 'package:ecommerce/screens/home/home_screen.dart';
 import 'package:ecommerce/screens/splash/splash_screen.dart';
 import 'package:ecommerce/theme.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: theme(),
-      initialRoute: SplashScreen.routeName,
+      initialRoute: HomeScreen.routeName,
       routes: routes,
     );
   }
