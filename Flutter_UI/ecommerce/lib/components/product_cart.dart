@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:ecommerce/models/product.dart';
+import 'package:ecommerce/screens/product_detail/product_detail_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,7 +24,10 @@ class ProductCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 20),
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, ProductDetailScreen.routeName,
+              arguments: ProductDetailArgument(product: product));
+        },
         child: SizedBox(
           width: width,
           child: Column(
