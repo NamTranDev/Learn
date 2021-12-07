@@ -1,4 +1,5 @@
 import 'package:ecommerce/components/default_button.dart';
+import 'package:ecommerce/screens/home/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,31 +12,38 @@ class LoginSuccessScreen extends StatelessWidget {
         leading: SizedBox(),
         title: Text('Login Success'),
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.04,
-          ),
-          Image.asset('assets/images/success.png'),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.08,
-          ),
-          Text(
-            "Login Success",
-            style: TextStyle(
-              fontSize: 30,
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.04,
             ),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.1,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 100),
-            child: DefaultButton(text: 'Back to home', onClick: () {}),
-          )
-        ],
+            Image.asset('assets/images/success.png'),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.08,
+            ),
+            Text(
+              "Login Success",
+              style: TextStyle(
+                fontSize: 30,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+              child: DefaultButton(
+                  text: 'Back to home',
+                  onClick: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, HomeScreen.routeName, (_) => false);
+                  }),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -37,7 +37,7 @@ class _BodyState extends State<Body> {
       child: Column(
         children: [
           Expanded(
-            flex: 3,
+            flex: 6,
             //View Pager same android
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 100),

@@ -1,4 +1,5 @@
 import 'package:ecommerce/components/default_button.dart';
+import 'package:ecommerce/screens/home/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -57,7 +58,12 @@ class _OtpFormState extends State<OtpForm> {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.2,
           ),
-          DefaultButton(text: 'Continue', onClick: () {})
+          DefaultButton(
+              text: 'Continue',
+              onClick: () {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, HomeScreen.routeName, (_) => false);
+              })
         ],
       ),
     );
