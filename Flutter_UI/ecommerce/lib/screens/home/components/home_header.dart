@@ -1,4 +1,5 @@
 import 'package:ecommerce/components/icon_with_counter.dart';
+import 'package:ecommerce/screens/cart/cart_screen.dart';
 import 'package:ecommerce/screens/home/components/search_field.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -20,7 +21,9 @@ class HomeHeader extends StatelessWidget {
           IconWithCounter(
             count: 0,
             icon: 'assets/icons/Cart Icon.svg',
-            onClick: () {},
+            onClick: () {
+              Navigator.pushNamed(context, CartScreen.routeName);
+            },
           ),
           IconWithCounter(
             count: 4,
