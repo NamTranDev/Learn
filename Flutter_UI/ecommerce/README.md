@@ -1,16 +1,7 @@
-# ecommerce
+## Project Sample UI and Flow for Ecommerce
 
-A new Flutter project.
+[<img src="https://i9.ytimg.com/vi/HB3iUXs3GHE/mq3.jpg?sqp=CKTz4o0G&rs=AOn4CLAgieVahoByx3hreFZGoP7OEuq73A" width="50%">](https://youtu.be/HB3iUXs3GHE)
 
-## Getting Started
+## Follow code from : 
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+https://github.com/abuanwar072/E-commerce-Complete-Flutter-UI
