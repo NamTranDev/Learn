@@ -1,5 +1,6 @@
 import 'package:ecommerce/components/default_button.dart';
-import 'package:ecommerce/screens/home/home_screen.dart';
+import 'package:ecommerce/screens/home/main_screen.dart';
+import 'package:ecommerce/storage/preference.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -61,8 +62,9 @@ class _OtpFormState extends State<OtpForm> {
           DefaultButton(
               text: 'Continue',
               onClick: () {
+                Preference.instance.storeLogin(true);
                 Navigator.pushNamedAndRemoveUntil(
-                    context, HomeScreen.routeName, (_) => false);
+                    context, MainScreen.routeName, (_) => false);
               })
         ],
       ),

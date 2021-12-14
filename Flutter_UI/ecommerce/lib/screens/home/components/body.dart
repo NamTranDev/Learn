@@ -18,9 +18,10 @@ class _BodyState extends State<Body> {
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(
+          mainAxisSize: MainAxisSize.max,
           children: [
             SizedBox(
-              height: 30,
+              height: 10,
             ),
             HomeHeader(),
             SizedBox(
@@ -40,7 +41,7 @@ class _BodyState extends State<Body> {
             ),
             PopularProducts(),
             SizedBox(
-              height: 30,
+              height: 50,
             ),
           ],
         ),

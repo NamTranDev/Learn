@@ -1,5 +1,6 @@
 import 'package:ecommerce/components/default_button.dart';
-import 'package:ecommerce/screens/home/home_screen.dart';
+import 'package:ecommerce/screens/home/home_tab.dart';
+import 'package:ecommerce/screens/home/main_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -36,10 +37,10 @@ class LoginSuccessScreen extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(left: 20, right: 20, bottom: 20),
               child: DefaultButton(
-                  text: 'Back to home',
+                  text: 'Go to home',
                   onClick: () {
                     Navigator.pushNamedAndRemoveUntil(
-                        context, HomeScreen.routeName, (_) => false);
+                        context, MainScreen.routeName, (_) => false);
                   }),
             )
           ],

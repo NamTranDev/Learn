@@ -1,5 +1,6 @@
 import 'package:ecommerce/components/default_button.dart';
 import 'package:ecommerce/screens/complete_profile/complete_profile_screen.dart';
+import 'package:ecommerce/storage/preference.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -39,6 +40,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 text: 'Continue',
                 onClick: () {
                   if (_formKey.currentState?.validate() == true) {
+                    Preference.instance.storeLogin(true);
                     Navigator.pushNamed(
                         context, CompleteProfileScreen.routeName);
                   } else {

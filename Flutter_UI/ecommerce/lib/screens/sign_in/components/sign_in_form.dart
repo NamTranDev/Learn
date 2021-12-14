@@ -1,6 +1,8 @@
 import 'package:ecommerce/components/default_button.dart';
 import 'package:ecommerce/screens/forgot_password/forgot_password_screen.dart';
+import 'package:ecommerce/screens/home/main_screen.dart';
 import 'package:ecommerce/screens/login_success/login_success_screen.dart';
+import 'package:ecommerce/storage/preference.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -12,11 +14,15 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
-  String? email;
-  String? password;
-  bool remember = false;
+  TextEditingController email =
+      TextEditingController(text: Preference.instance.username());
+  TextEditingController password =
+      TextEditingController(text: Preference.instance.password());
+  bool remember =
+      Preference.instance.username()?.isNotEmpty == true ? true : false;
   final _formKey = GlobalKey<FormState>();
   var validateMode = AutovalidateMode.disabled;
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -64,7 +70,20 @@ class _SignInFormState extends State<SignInForm> {
                 text: 'Continue',
                 onClick: () {
                   if (_formKey.currentState?.validate() == true) {
-                    Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                    if (remember) {
+                      Preference.instance
+                          .storeLoginInfo(email.text, password.text);
+                    } else {
+                      Preference.instance.clearLoginInfo();
+                    }
+                    Preference.instance.storeLogin(true);
+                    if (Preference.instance.isFirstLogin()) {
+                      Navigator.pushNamedAndRemoveUntil(context,
+                          LoginSuccessScreen.routeName, (route) => false);
+                    } else {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, MainScreen.routeName, (route) => false);
+                    }
                   } else {
                     setState(() {
                       validateMode = AutovalidateMode.onUserInteraction;
@@ -77,8 +96,8 @@ class _SignInFormState extends State<SignInForm> {
 
   TextFormField buildEmailForm() {
     return TextFormField(
+      controller: email,
       textInputAction: TextInputAction.next,
-      onSaved: (newValue) => email = newValue,
       validator: (value) {
         var input = value ?? '';
         if (input.isEmpty) {
@@ -102,9 +121,9 @@ class _SignInFormState extends State<SignInForm> {
 
   TextFormField buildPasswordForm() {
     return TextFormField(
+      controller: password,
       textInputAction: TextInputAction.done,
       obscureText: true,
-      onSaved: (newValue) => password = newValue,
       validator: (value) {
         var input = value ?? '';
         if (input.isEmpty) {
