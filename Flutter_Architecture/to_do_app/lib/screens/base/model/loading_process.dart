@@ -1,0 +1,1 @@
+enum LoadingProcess { LOADING_NONE, LOADING_DIALOG, LOADING_NORMAL }
