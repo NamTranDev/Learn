@@ -13,14 +13,14 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passController = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
-    emailController.dispose();
-    passController.dispose();
+    _emailController.dispose();
+    _passController.dispose();
   }
 
   @override
@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             //text field input for email
             TextFieldInput(
-                controller: emailController,
+                controller: _emailController,
                 hintText: "Input Your Email",
                 inputType: TextInputType.emailAddress),
             const SizedBox(
@@ -56,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             //text field input for password
             TextFieldInput(
-              controller: emailController,
+              controller: _emailController,
               hintText: "Input Your Password",
               inputType: TextInputType.text,
               isPass: true,
