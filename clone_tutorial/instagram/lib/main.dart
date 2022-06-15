@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:instagram/screens/sign_in_screen.dart';
 import 'package:instagram/screens/sign_up_screen.dart';
 import 'package:instagram/utils/colors.dart';
 
@@ -8,7 +9,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (kIsWeb) {
     await Firebase.initializeApp(
-      options: FirebaseOptions(
+      options: const FirebaseOptions(
           apiKey: 'AIzaSyBx0u-7ztSP5v03gMR83gjJcLtR82sI6Es',
           appId: '1:133554603444:web:e0610c0daf5172d95cdee1',
           messagingSenderId: '133554603444',
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
       title: 'Instagram Clone',
       theme: ThemeData.dark()
           .copyWith(scaffoldBackgroundColor: mobileBackgroundColor),
-      home: SignUpScreen(),
+      home: SignInScreen(),
     );
   }
 }
