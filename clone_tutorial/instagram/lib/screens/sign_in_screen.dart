@@ -2,25 +2,51 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:instagram/repository/authen.dart';
+import 'package:instagram/screens/home_screen.dart';
+import 'package:instagram/screens/sign_up_screen.dart';
 import 'package:instagram/utils/colors.dart';
+import 'package:instagram/utils/utils.dart';
 import 'package:instagram/widgets/text_field_input.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class SignInScreen extends StatefulWidget {
+  const SignInScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignInScreen> createState() => _SignInScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
+
+  bool _isLoading = false;
 
   @override
   void dispose() {
     super.dispose();
     _emailController.dispose();
     _passController.dispose();
+  }
+
+  void _signInUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    String result = await Authen().loginUser(
+        email: _emailController.text, password: _passController.text);
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (result != 'success') {
+      showSnackBar(context, result);
+    } else {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => HomeScreen()));
+    }
   }
 
   @override
@@ -56,9 +82,10 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             //text field input for password
             TextFieldInput(
-              controller: _emailController,
+              controller: _passController,
               hintText: "Input Your Password",
               inputType: TextInputType.text,
+              actionInput: TextInputAction.done,
               isPass: true,
             ),
             const SizedBox(
@@ -66,9 +93,13 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             //button login
             InkWell(
-              onTap: () {},
+              onTap: _signInUser,
               child: Container(
-                child: const Text("Login"),
+                child: _isLoading
+                    ? const CircularProgressIndicator(
+                        color: primaryColor,
+                      )
+                    : const Text("Sign In"),
                 alignment: Alignment.center,
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 12),
@@ -96,10 +127,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: (() {}),
+                  onTap: (() {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => SignUpScreen()));
+                  }),
                   child: Container(
                     child: Text(
-                      "Sign up.",
+                      "Sign Up.",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
