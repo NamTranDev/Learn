@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:instagram/repository/authen.dart';
-import 'package:instagram/screens/home_screen.dart';
 import 'package:instagram/screens/sign_up_screen.dart';
 import 'package:instagram/utils/colors.dart';
 import 'package:instagram/utils/utils.dart';
@@ -43,10 +40,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
     if (result != 'success') {
       showSnackBar(context, result);
-    } else {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => HomeScreen()));
-    }
+    } 
   }
 
   @override

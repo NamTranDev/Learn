@@ -8,7 +8,6 @@ import 'package:instagram/repository/authen.dart';
 import '../utils/colors.dart';
 import '../utils/utils.dart';
 import '../widgets/text_field_input.dart';
-import 'home_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -60,10 +59,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     if (result != 'success') {
       showSnackBar(context, result);
-    } else {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => HomeScreen()));
-    }
+    } 
   }
 
   @override
